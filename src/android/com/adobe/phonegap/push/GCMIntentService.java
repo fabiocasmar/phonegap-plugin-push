@@ -323,8 +323,16 @@ public class GCMIntentService extends GcmListenerService implements PushConstant
          * Notification add actions
          */
         createActions(extras, mBuilder, resources, packageName);
+	
+	Notification mNotification = mBuilder.build();
 
-        mNotificationManager.notify(appName, notId, mBuilder.build());
+        /*
+         * Sounds repear forever
+        */
+        mNotification.flags |= Notification.FLAG_INSISTENT;
+ 
+        mNotificationManager.notify(appName, notId, mNotification);
+
     }
 
     private void createActions(Bundle extras, NotificationCompat.Builder mBuilder, Resources resources, String packageName) {
